@@ -1,11 +1,9 @@
 import { useState } from 'react'
-import FormVagas from '../../components/FormVagas'
+import { ListVac } from './styles'
+import Vacancies from '../../components/Vacancies'
+import FormVacancies from '../../components/FormVacancies'
 
-import Vaga from '../../components/Vaga'
-
-import styles from './ListaVagas.module.css'
-
-type Vaga = {
+type Vacancies = {
   id: string
   titulo: string
   localizacao: string
@@ -16,7 +14,7 @@ type Vaga = {
   requisitos: string[]
 }
 
-const vagas = [
+const vacancies = [
   {
     id: 1,
     titulo: 'Desenvolvedor front-end',
@@ -89,32 +87,32 @@ const vagas = [
   }
 ]
 
-const ListaVagas = () => {
-  const [filtro, setFiltro] = useState<string>('')
+const ListVacancies = () => {
+  const [filter, setFilter] = useState<string>('')
 
-  const vagasFiltradas = vagas.filter(
-    (x) => x.titulo.toLocaleLowerCase().search(filtro) >= 0
+  const vacanciesfiltered = vacancies.filter(
+    (x) => x.titulo.toLocaleLowerCase().search(filter) >= 0
   )
 
   return (
     <div>
-      <FormVagas aoPesquisar={(termo: string) => setFiltro(termo)} />
-      <ul className={styles.vagas}>
-        {vagasFiltradas.map((vag) => (
-          <Vaga
-            key={vag.id}
-            titulo={vag.titulo}
-            localizacao={vag.localizacao}
-            nivel={vag.nivel}
-            modalidade={vag.modalidade}
-            salarioMin={vag.salarioMin}
-            salarioMax={vag.salarioMax}
-            requisitos={vag.requisitos}
+      <FormVacancies whenSearching={(termo: string) => setFilter(termo)} />
+      <ListVac>
+        {vacanciesfiltered.map((vacancie) => (
+          <Vacancies
+            key={vacancie.id}
+            titulo={vacancie.titulo}
+            localizacao={vacancie.localizacao}
+            nivel={vacancie.nivel}
+            modalidade={vacancie.modalidade}
+            salarioMin={vacancie.salarioMin}
+            salarioMax={vacancie.salarioMax}
+            requisitos={vacancie.requisitos}
           />
         ))}
-      </ul>
+      </ListVac>
     </div>
   )
 }
 
-export default ListaVagas
+export default ListVacancies
